@@ -1,8 +1,9 @@
-package com.example.angular.springbootangularkubernetes.controller;
+package com.martino.employeeapi.controllers;
 
-import com.example.angular.springbootangularkubernetes.ResourceNotFoundException;
-import com.example.angular.springbootangularkubernetes.model.Employee;
-import com.example.angular.springbootangularkubernetes.repository.EmployeeRepository;
+import com.martino.employeeapi.ResourceNotFoundException;
+import com.martino.employeeapi.models.Employee;
+import com.martino.employeeapi.repositories.EmployeeRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

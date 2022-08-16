@@ -1,13 +1,13 @@
-package com.example.angular.springbootangularkubernetes;
+package com.martino.employeeapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringbootAngularKubernetesApplication {
+public class EmployeeApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringbootAngularKubernetesApplication.class, args);
+		SpringApplication.run(EmployeeApiApplication.class, args);
 	}
 
 }

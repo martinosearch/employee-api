@@ -1,4 +1,4 @@
-package com.example.angular.springbootangularkubernetes.model;
+package com.martino.employeeapi.models;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
