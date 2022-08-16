@@ -1,39 +1,37 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: springboot-k8s-mysql
+  name: employee-api
   labels:
-    name: springboot-k8s-mysql
+    name: employee-api
 spec:
-  ports:
-    - nodePort: 30163 
-      port: 8080      
-      targetPort: 8080  
-      protocol: TCP
+  type: LoadBalancer 
   selector:           
-    app: springboot-k8s-mysql
-  type: NodePort       
-
+    app: employee-api
+  ports:
+    - port: 9002      
+      targetPort: 9002
+      
 ---
 apiVersion: apps/v1 
 kind: Deployment    
 metadata:              
-  name: springboot-k8s-mysql
+  name: employee-api
 spec:                
   selector:         
     matchLabels:
-      app: springboot-k8s-mysql
-  replicas: 3        
+      app: employee-api
+  replicas: 2        
   template:
     metadata:
       labels:        
-        app: springboot-k8s-mysql
+        app: employee-api
     spec:
       containers:
-        - name: springboot-k8s-mysql
-          image: springboot-k8s-deployment:1.0
+        - name: employee-api
+          image: martinosearch/employee-api:latest
           ports:
-            - containerPort: 8080                
+            - containerPort: 9002                
           env:   # Setting Enviornmental Variables
           - name: DB_HOST   # Setting Database host address from configMap
             valueFrom: 
