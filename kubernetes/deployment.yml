@@ -1,56 +1,39 @@
-kind: Service
 apiVersion: v1
+kind: Service
+metadata:
+  name: employee-api
+spec:
+  selector:
+    app: employee-api
+  ports:
+  - protocol: TCP
+    port: 9002
+    targetPort: 9002
+---
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: employee-api
   labels:
-    name: employee-api
-spec:
-  type: LoadBalancer 
-  selector:           
     app: employee-api
-  ports:
-    - port: 9002      
-      targetPort: 9002
-      
----
-apiVersion: apps/v1 
-kind: Deployment    
-metadata:              
-  name: employee-api
-spec:                
-  selector:         
+spec:
+  replicas: 3
+  selector:
     matchLabels:
       app: employee-api
-  replicas: 2        
   template:
     metadata:
-      labels:        
+      labels:
         app: employee-api
     spec:
       containers:
-        - name: employee-api
-          image: martinosearch/employee-api:latest
-          ports:
-            - containerPort: 9002                
-          env:   # Setting Enviornmental Variables
-          - name: DB_HOST   # Setting Database host address from configMap
-            valueFrom: 
-              configMapKeyRef:
-                name: db-conf  # name of configMap
-                key: host
-          - name: DB_NAME  # Setting Database name from configMap
-            valueFrom:
-              configMapKeyRef:
-                name: db-conf 
-                key: name
-          - name: DB_USERNAME  # Setting Database username from Secret
-            valueFrom:
-              secretKeyRef:
-                name: db-credentials # Secret Name
-                key: username
-          - name: DB_PASSWORD # Setting Database password from Secret
-            valueFrom:
-              secretKeyRef:
-                name: db-credentials
-                key: password     
-        
+      - name: employee-api
+        image: martinosearch/employee-api
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: 9002
+    
+

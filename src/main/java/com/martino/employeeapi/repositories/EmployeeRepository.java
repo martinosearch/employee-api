@@ -1,15 +1,16 @@
 package com.martino.employeeapi.repositories;
 
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
 import com.martino.employeeapi.models.Employee;
 
-@Repository
 public interface EmployeeRepository {
 
 	Employee save(Employee employee);
 
-	Object findAll();
+	List<Employee> findAll();
 
-	Object findById(Integer employeeId);
+	Employee findById(Integer employeeId);
+
+	void delete(Employee employee);
 }

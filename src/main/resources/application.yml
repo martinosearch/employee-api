@@ -1,5 +1,10 @@
 server:
   port: 9002
+  
+spring:
+  datasource:
+    hikari:
+      initialization-fail-timeout: 0
 
 #spring:
 #  datasource:
