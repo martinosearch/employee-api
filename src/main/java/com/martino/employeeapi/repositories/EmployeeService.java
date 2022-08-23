@@ -19,7 +19,7 @@ public class EmployeeService implements EmployeeRepository {
 	@Override
 	public List<Employee> findAll() {
 		return Arrays.asList(new Employee(1, "Martin", "martino", 97192084, "Lomé"),
-				new Employee(1, "Gérom", "martino", 97192084, "Lomé"));
+				new Employee(2, "Gérom", "martino", 97192084, "Lomé"));
 	}
 
 	@Override
@@ -33,5 +33,4 @@ public class EmployeeService implements EmployeeRepository {
 		// TODO Auto-generated method stub
 
 	}
-
 }

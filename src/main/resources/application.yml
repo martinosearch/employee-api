@@ -1,6 +1,6 @@
 server:
-  port: 9002
-  
+    port: 9002
+
 spring:
   datasource:
     hikari:

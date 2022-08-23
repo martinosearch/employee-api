@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.martino.employeeapi.ResourceNotFoundException;
 import com.martino.employeeapi.models.Employee;
-import com.martino.employeeapi.repositories.EmployeeRepository;
+import com.martino.employeeapi.repositories.EmployeeService;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -29,23 +29,23 @@ public class EmployeeController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
-	private EmployeeRepository employeeRepository;
+	private EmployeeService employeeService;
 
 	@PostMapping("/employees")
 	public Employee addEmployee(@RequestBody Employee employee) {
-		return this.employeeRepository.save(employee);
+		return this.employeeService.save(employee);
 	}
 
 	@GetMapping("/employees")
 	public ResponseEntity<List<Employee>> getAllEmployees() {
 		this.logger.info(" >>>> Fetching employees.....");
-		return ResponseEntity.ok(this.employeeRepository.findAll());
+		return ResponseEntity.ok(this.employeeService.findAll());
 	}
 
 	@GetMapping("/employees/{id}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable(value = "id") Integer employeeId)
 			throws ResourceNotFoundException {
-		final Employee employee = this.employeeRepository.findById(employeeId);
+		final Employee employee = this.employeeService.findById(employeeId);
 
 		return ResponseEntity.ok().body(employee);
 	}
@@ -53,23 +53,23 @@ public class EmployeeController {
 	@PutMapping("/employees/{id}")
 	public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "id") Integer employeeId,
 			@RequestBody Employee employeeDetails) throws ResourceNotFoundException {
-		final Employee employee = this.employeeRepository.findById(employeeId);
+		final Employee employee = this.employeeService.findById(employeeId);
 
 		employee.setName(employeeDetails.getName());
 		employee.setEmail(employeeDetails.getEmail());
 		employee.setPhone(employeeDetails.getPhone());
 		employee.setDepartment(employeeDetails.getDepartment());
 
-		final Employee updatedEmployee = this.employeeRepository.save(employee);
+		final Employee updatedEmployee = this.employeeService.save(employee);
 		return ResponseEntity.ok(updatedEmployee);
 	}
 
 	@DeleteMapping("/employees/{id}")
 	public Map<String, Boolean> deleteEmployee(@PathVariable(value = "id") Integer employeeId)
 			throws ResourceNotFoundException {
-		final Employee employee = this.employeeRepository.findById(employeeId);
+		final Employee employee = this.employeeService.findById(employeeId);
 
-		this.employeeRepository.delete(employee);
+		this.employeeService.delete(employee);
 		final Map<String, Boolean> response = new HashMap<>();
 		response.put("deleted", Boolean.TRUE);
 		return response;
