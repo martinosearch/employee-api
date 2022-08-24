@@ -1,11 +1,6 @@
 server:
     port: 9002
 
-spring:
-  datasource:
-    hikari:
-      initialization-fail-timeout: 0
-
 #spring:
 #  datasource:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
@@ -20,23 +15,23 @@ spring:
 #    show-sql: true
 #    hibernate:
 #      ddl-auto: create
-#      
-#logging:
-#  level:
-#    org:
-#      springframework:
-#        web: DEBUG
+      
+logging:
+  level:
+    org:
+      springframework:
+        web: INFO
 
-#spring:
-#  datasource:
-#    driver-class-name: com.mysql.jdbc.Driver
-#    url: jdbc:mysql://localhost/employee_db?allowPublicKeyRetrieval=true&useSSL=false
-#    username: root
-#    password: 
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
-#    properties:
-#      hibernate:
-#        dialect: org.hibernate.dialect.MySQL5Dialect
-#    show-sql: true
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost/employee_db?allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: 
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true

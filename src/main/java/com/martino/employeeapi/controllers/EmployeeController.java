@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.martino.employeeapi.ResourceNotFoundException;
+import com.martino.employeeapi.interfaces.EmployeeService;
 import com.martino.employeeapi.models.Employee;
-import com.martino.employeeapi.repositories.EmployeeService;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -43,17 +43,17 @@ public class EmployeeController {
 	}
 
 	@GetMapping("/employees/{id}")
-	public ResponseEntity<Employee> getEmployeeById(@PathVariable(value = "id") Integer employeeId)
+	public ResponseEntity<Employee> getEmployeeById(@PathVariable(value = "id") Long employeeId)
 			throws ResourceNotFoundException {
-		final Employee employee = this.employeeService.findById(employeeId);
+		final Employee employee = this.employeeService.findOne(employeeId);
 
 		return ResponseEntity.ok().body(employee);
 	}
 
 	@PutMapping("/employees/{id}")
-	public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "id") Integer employeeId,
+	public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "id") Long employeeId,
 			@RequestBody Employee employeeDetails) throws ResourceNotFoundException {
-		final Employee employee = this.employeeService.findById(employeeId);
+		final Employee employee = this.employeeService.findOne(employeeId);
 
 		employee.setName(employeeDetails.getName());
 		employee.setEmail(employeeDetails.getEmail());
@@ -65,9 +65,9 @@ public class EmployeeController {
 	}
 
 	@DeleteMapping("/employees/{id}")
-	public Map<String, Boolean> deleteEmployee(@PathVariable(value = "id") Integer employeeId)
+	public Map<String, Boolean> deleteEmployee(@PathVariable(value = "id") Long employeeId)
 			throws ResourceNotFoundException {
-		final Employee employee = this.employeeService.findById(employeeId);
+		final Employee employee = this.employeeService.findOne(employeeId);
 
 		this.employeeService.delete(employee);
 		final Map<String, Boolean> response = new HashMap<>();
