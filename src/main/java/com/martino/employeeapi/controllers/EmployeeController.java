@@ -24,25 +24,25 @@ import com.martino.employeeapi.models.Employee;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/employees")
 public class EmployeeController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	private EmployeeService employeeService;
 
-	@PostMapping("/employees")
+	@PostMapping("/save")
 	public Employee addEmployee(@RequestBody Employee employee) {
 		return this.employeeService.save(employee);
 	}
 
-	@GetMapping("/employees")
+	@GetMapping("/list")
 	public ResponseEntity<List<Employee>> getAllEmployees() {
 		this.logger.info(" >>>> Fetching employees.....");
 		return ResponseEntity.ok(this.employeeService.findAll());
 	}
 
-	@GetMapping("/employees/{id}")
+	@GetMapping("/find/{id}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable(value = "id") Long employeeId)
 			throws ResourceNotFoundException {
 		final Employee employee = this.employeeService.findOne(employeeId);
@@ -50,7 +50,7 @@ public class EmployeeController {
 		return ResponseEntity.ok().body(employee);
 	}
 
-	@PutMapping("/employees/{id}")
+	@PutMapping("/update/{id}")
 	public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "id") Long employeeId,
 			@RequestBody Employee employeeDetails) throws ResourceNotFoundException {
 		final Employee employee = this.employeeService.findOne(employeeId);
@@ -64,7 +64,7 @@ public class EmployeeController {
 		return ResponseEntity.ok(updatedEmployee);
 	}
 
-	@DeleteMapping("/employees/{id}")
+	@DeleteMapping("/delete/{id}")
 	public Map<String, Boolean> deleteEmployee(@PathVariable(value = "id") Long employeeId)
 			throws ResourceNotFoundException {
 		final Employee employee = this.employeeService.findOne(employeeId);
