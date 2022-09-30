@@ -1,7 +1,0 @@
-mvn clean package -Dmaven.test.skip=true
-
-docker build . -t martinosearch/employee-api
-
-docker push martinosearch/employee-api
-
-k apply -f deployment.yml

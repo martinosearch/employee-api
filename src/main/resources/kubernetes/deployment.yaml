@@ -17,7 +17,7 @@ kind: Deployment
 metadata:
   name: employee-api
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: employee-api
@@ -29,11 +29,17 @@ spec:
       containers:
       - name: employee-api
         image: martinosearch/employee-api
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "250m"
+        imagePullPolicy: Always
         ports:
         - containerPort: 9002
+        env:
+          - name: DB_HOST
+            value: mysql
+          - name: DB_NAME
+            value: employee_db
+          - name: DB_USER
+            value: martin
+          - name: DB_PASSWORD
+            value: "@Martin2020"
     
 

@@ -1,0 +1,25 @@
+
+mvn clean package -Dmaven.test.skip=true
+
+docker build . -t martinosearch/employee-api
+
+docker push martinosearch/employee-api
+
+alias k=kubectl
+
+k delete -f deployment.yaml
+
+k apply -f deployment.yaml
+
+k delete -f mysql-deployment.yaml
+
+k apply -f mysql-deployment.yaml
+
+k get pods --watch
+
+
+
+
+
+
+
